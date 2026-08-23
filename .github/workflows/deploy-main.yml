@@ -9,11 +9,23 @@ jobs:
   itchio-upload:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup butler
-        uses: remarkablegames/setup-butler@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build project
         run: npm run build
+
+      - name: Setup butler
+        uses: remarkablegames/setup-butler@v3
 
       - name: Upload to itch.io
         run: butler push dist bethfromabove/temporarytitle:browser
