@@ -1,0 +1,21 @@
+name: Deploy main to itch.io
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  itchio-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup butler
+        uses: remarkablegames/setup-butler@v3
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload to itch.io
+        run: butler push dist bethfromabove/temporarytitle:browser
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
