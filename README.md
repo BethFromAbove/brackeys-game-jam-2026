@@ -30,6 +30,4 @@ We're using the default project structure to get started. This is as follows:
 
 ## Deploying to Production
 
-@TODO: I'm going to set us up with automated deployment this time around.
-
-After you run the `npm run build` command, your code will be built into a single bundle and saved to the `dist` folder, along with any other assets your project imported, or stored in the public assets folder.
+The game will automatically deploy to Itch when you push or merge to `main` :tada:
