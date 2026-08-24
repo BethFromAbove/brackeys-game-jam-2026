@@ -14,12 +14,9 @@ export class Game extends Scene
 
         this.add.image(512, 384, 'background').setAlpha(0.5);
 
-        this.input.once('pointerdown', () => {
-
-            this.scene.start('GameOver');
-
-        });
-
         this.player = new Seagull(this, 300, 300);
+
+        // debug, prints the mouse pos on click
+        this.input.on('pointerdown', () => {console.log(this.input.mousePointer.x, this.input.mousePointer.y);});
     }
 }
