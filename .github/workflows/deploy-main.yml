@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   itchio-upload:
@@ -28,6 +29,6 @@ jobs:
         uses: remarkablegames/setup-butler@v3
 
       - name: Upload to itch.io
-        run: butler push dist bethfromabove/temporarytitle:browser
+        run: butler push dist bethfromabove/seagull-squabble:browser
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}

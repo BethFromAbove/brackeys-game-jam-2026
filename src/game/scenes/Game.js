@@ -1,5 +1,5 @@
-import { Scene } from 'phaser';
-import Foo from '../objects/Foo';
+import { Scene, GameObjects } from 'phaser';
+import Seagull from '../objects/Seagull';
 
 export class Game extends Scene
 {
@@ -14,21 +14,9 @@ export class Game extends Scene
 
         this.add.image(512, 384, 'background').setAlpha(0.5);
 
-        this.add.text(512, 384, 'Make something fun!\nand share it with us:\nsupport@phaser.io', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0.5);
+        this.player = new Seagull(this, 300, 300);
 
-        this.input.once('pointerdown', () => {
-
-            this.scene.start('GameOver');
-
-        });
-
-        // this custom game object will be updated and drawn in the scene
-        this.foo  = new Foo(this);
-        
+        // debug, prints the mouse pos on click
+        this.input.on('pointerdown', () => {console.log(this.input.mousePointer.x, this.input.mousePointer.y);});
     }
-
 }
