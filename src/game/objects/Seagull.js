@@ -17,6 +17,22 @@ export default class Seagull extends GameObjects.Sprite {
             right: "D",
         });
 
+        this.scene.anims.create({
+            key: 'walk',
+            frames: this.scene.anims.generateFrameNumbers('seagull-walk', { start: 1, end: 2 }),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.scene.anims.create({
+            key: 'idle',
+            frames: this.scene.anims.generateFrameNumbers('seagull-walk', { start: 0, end: 0 }),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.facingRightWalking = true;
+
         // @TEMP, cycle through nest/walk/fly with space
         this.keyObject = this.scene.input.keyboard.addKey("SPACE");
         this.keyObject.on('down', () => {
@@ -34,6 +50,7 @@ export default class Seagull extends GameObjects.Sprite {
     }
 
     preUpdate(time, delta) {
+        super.preUpdate(time, delta);
         this.update(time, delta);
         // this.draw();
     }
@@ -61,7 +78,7 @@ export default class Seagull extends GameObjects.Sprite {
         this.body.setMaxSpeed(0);
 
         this.setTexture('seagull');
-        this.setScale(0.02);
+        this.setScale(0.5);
     }
 
     /**
@@ -77,7 +94,7 @@ export default class Seagull extends GameObjects.Sprite {
         this.body.setDrag(100);
 
         this.setTexture('seagull');
-        this.setScale(0.02);
+        this.setScale(0.5);
     }
 
     /**
@@ -135,15 +152,24 @@ export default class Seagull extends GameObjects.Sprite {
         
         if (l && !r) {
             this.body.setVelocityX(this.body.velocity.x - this.acceleration);
+            this.facingRightWalking = false;
         }
         if (r && !l) {
             this.body.setVelocityX(this.body.velocity.x + this.acceleration);
+            this.facingRightWalking = true;
         }
+        this.setFlipX(this.facingRightWalking);
         if (u && !d) {
             this.body.setVelocityY(this.body.velocity.y - this.acceleration);
         }
         if (d && !u) {
             this.body.setVelocityY(this.body.velocity.y + this.acceleration);
+        }
+        if (u || d || l || r) {
+            this.play('walk', true);
+        }
+        else {
+            this.play('idle', true);
         }
     }
 
