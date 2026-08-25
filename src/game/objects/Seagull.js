@@ -50,8 +50,9 @@ export default class Seagull extends GameObjects.Sprite {
             } else {
                 this.setNest();
             }
-            console.log(this.state);
         });
+
+        this.inventory = [];
 
         this.setNest();
     }
@@ -60,12 +61,33 @@ export default class Seagull extends GameObjects.Sprite {
         super.preUpdate(time, delta);
         this.update(time, delta);
         // this.draw();
-
-        console.log(this.scale);
     }
 
     update(time, delta) {
         this.handleMovement();
+        this.dragInventory();
+    }
+
+    /**
+     * add an item of food to the inventory
+     */
+    grab(item) {
+        item.setScale(0.6);
+        item.body.enable = false;
+        this.inventory.push(item);
+    }
+
+    /**
+     * move all the current inventory items along with the seagull
+     */
+    dragInventory() {
+        let n = this.inventory.length;
+        let dx = 20;
+        this.inventory.forEach((item, idx) => {
+            item.x = this.x + item.xOff;
+            item.xOff = (idx * dx) - (n * dx * 0.5);
+            item.y = this.y + 30;
+        });
     }
 
     draw() {
@@ -117,6 +139,7 @@ export default class Seagull extends GameObjects.Sprite {
         this.body.setMaxSpeed(300);
         this.body.setDrag(0);
 
+        this.setFlipX(false);
         this.play('fly');
         this.setScale(1);
     }
