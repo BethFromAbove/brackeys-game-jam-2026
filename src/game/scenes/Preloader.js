@@ -41,6 +41,10 @@ export class Preloader extends Scene
         this.load.image('nest', 'nest.png');
         this.load.image('nest-sitting', 'nest-sitting.png');
         this.load.spritesheet('seagull-walk', 'seagull-spritesheet.png',  { frameWidth: 100, frameHeight: 100 });
+
+        this.load.image('lollipop', 'food/lollipop.png');
+        this.load.image('fish-n-chips', 'food/fish-n-chips.jpg');
+        this.load.image('pasty', 'food/pasty.jpg');
     }
 
     create ()
