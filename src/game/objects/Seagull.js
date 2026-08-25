@@ -27,7 +27,14 @@ export default class Seagull extends GameObjects.Sprite {
         this.scene.anims.create({
             key: 'idle',
             frames: this.scene.anims.generateFrameNumbers('seagull-walk', { start: 0, end: 0 }),
-            frameRate: 6,
+            frameRate: 1,
+            repeat: -1
+        });
+
+        this.scene.anims.create({
+            key: 'fly',
+            frames: this.scene.anims.generateFrameNumbers('flying', { start: 0, end: 0 }),
+            frameRate: 1,
             repeat: -1
         });
 
@@ -95,7 +102,7 @@ export default class Seagull extends GameObjects.Sprite {
         this.body.setMaxSpeed(80);
         this.body.setDrag(100);
 
-        this.setTexture('seagull');
+        //this.setTexture('seagull');
         this.setScale(0.5);
     }
 
@@ -110,8 +117,8 @@ export default class Seagull extends GameObjects.Sprite {
         this.body.setMaxSpeed(300);
         this.body.setDrag(0);
 
-        this.setTexture('seagull-fly');
-        this.setScale(0.5);
+        this.play('fly');
+        this.setScale(1);
     }
 
     /**

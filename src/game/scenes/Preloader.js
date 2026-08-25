@@ -34,7 +34,12 @@ export class Preloader extends Scene
 
         this.load.image('logo', 'logo.png');
         this.load.image('seagull', 'seagull.png');
-        this.load.image('seagull-fly', 'seagull-fly.jpg');
+        //this.load.image('seagull-fly', 'flying.png');
+        this.load.spritesheet('flying', 'flying.png',  { frameWidth: 50, frameHeight: 100 });
+        this.load.image('background-beach', 'background.png');
+        this.load.image('icecreamvan', 'icecreamvan.png');
+        this.load.image('nest', 'nest.png');
+        this.load.image('nest-sitting', 'nest-sitting.png');
         this.load.spritesheet('seagull-walk', 'seagull-spritesheet.png',  { frameWidth: 100, frameHeight: 100 });
     }
 
