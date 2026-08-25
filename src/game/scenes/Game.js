@@ -10,8 +10,6 @@ export class Game extends Scene
     }
 
     create () {
-        this.cameras.main.setBackgroundColor(0x00ff00);
-
         this.add.image(512, 384, 'background-beach'); //image is 800 x 600, can be changed
         this.add.image(512, 384, 'icecreamvan');
         this.add.image(202, 565, 'nest').setScale(0.5);

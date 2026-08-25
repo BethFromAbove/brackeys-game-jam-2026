@@ -139,6 +139,7 @@ export default class Seagull extends GameObjects.Sprite {
         this.body.setMaxSpeed(300);
         this.body.setDrag(0);
 
+        this.setFlipX(false);
         this.play('fly');
         this.setScale(1);
     }
