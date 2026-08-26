@@ -11,7 +11,7 @@ export class MainMenu extends Scene
     {
         this.add.image(400, 300, 'background');
 
-        this.add.image(400, 300, 'logo').setScale(0.5);
+        this.add.image(400, 300, 'seagull').setScale(0.5);
 
         this.add.text(400, 460, 'Main Menu', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
