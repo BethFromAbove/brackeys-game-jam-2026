@@ -3,11 +3,31 @@ import Util from '../util';
 
 export default class Seagull extends GameObjects.Sprite {
 
-    constructor(scene, x, y) {
-        super(scene, x, y, 'seagull');
+    constructor(scene) {
+        super(scene, 0, 0, 'seagull');
         this.scene = scene;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
+
+        // Colliding with world bounds should reflect the bird
+        this.body.setCollideWorldBounds(true);
+        this.body.onWorldBounds = true;
+        this.scene.physics.world.on(
+            'worldbounds',
+            (body, up, down, left, right) => {
+                if (body == this.body) {
+                    let r = this.rotation;
+                    let dr = 0;
+                    if (up || down) {
+                        dr = (Math.PI - r) * 2;
+                    }
+                    if (left || right) {
+                        dr = (Math.PI / 2 - r) * 2;
+                    }
+                    this.rotation += dr;
+                }
+            }
+        );
 
         this.cursors = this.scene.input.keyboard.createCursorKeys();
         this.wasd = scene.input.keyboard.addKeys({
@@ -84,9 +104,12 @@ export default class Seagull extends GameObjects.Sprite {
         let n = this.inventory.length;
         let dx = 20;
         this.inventory.forEach((item, idx) => {
-            item.x = this.x + item.xOff;
-            item.xOff = (idx * dx) - (n * dx * 0.5);
-            item.y = this.y + 30;
+            let x = this.x + (idx * dx) - (n * dx * 0.5);
+            let y = this.y + 30;
+            item.x = x;
+            item.body.x = x;
+            item.y = y;
+            item.body.y = y;
         });
     }
 
@@ -100,15 +123,15 @@ export default class Seagull extends GameObjects.Sprite {
      */
     setNest() {
         this.state = 'nest';
-        this.x = 80;
-        this.y = 680;
+        this.x = 100;
+        this.y = 480;
         this.body.setVelocity(0, 0);
         this.rotation = 0;
         this.setFlipY(false);
         this.acceleration = 0;
         this.body.setMaxSpeed(0);
-
-        this.setTexture('seagull');
+        this.body.setSize(100, 100);
+        this.play('idle', true);
         this.setScale(0.5);
     }
 
@@ -122,9 +145,8 @@ export default class Seagull extends GameObjects.Sprite {
         this.setFlipY(false);
         this.acceleration = 10;
         this.body.setMaxSpeed(80);
-        this.body.setDrag(100);
-
-        //this.setTexture('seagull');
+        this.body.setDrag(400);
+        this.body.setSize(100, 100);
         this.setScale(0.5);
     }
 
@@ -138,9 +160,9 @@ export default class Seagull extends GameObjects.Sprite {
         this.acceleration = 30;
         this.body.setMaxSpeed(300);
         this.body.setDrag(0);
-
         this.setFlipX(false);
         this.play('fly');
+        this.body.setSize(50, 100);
         this.setScale(1);
     }
 
