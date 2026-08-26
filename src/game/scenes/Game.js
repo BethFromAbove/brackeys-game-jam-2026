@@ -10,9 +10,9 @@ export class Game extends Scene
     }
 
     create () {
-        this.add.image(512, 384, 'background-beach'); //image is 800 x 600, can be changed
-        this.add.image(512, 384, 'icecreamvan');
-        this.add.image(202, 565, 'nest').setScale(0.5);
+        this.add.image(400, 300, 'background-beach');
+        this.add.image(400, 300, 'icecreamvan');
+        this.add.image(100, 480, 'nest').setScale(0.5);
 
         // create a random assortment of foods
         this.foods = [];
@@ -29,7 +29,7 @@ export class Game extends Scene
             this.foods.push(food);
         }
 
-        this.player = new Seagull(this, 300, 300);
+        this.player = new Seagull(this);
 
         // collider for seagull grabbing food items
         this.physics.add.overlap(

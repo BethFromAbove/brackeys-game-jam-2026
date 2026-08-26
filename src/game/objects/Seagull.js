@@ -3,8 +3,8 @@ import Util from '../util';
 
 export default class Seagull extends GameObjects.Sprite {
 
-    constructor(scene, x, y) {
-        super(scene, x, y, 'seagull');
+    constructor(scene) {
+        super(scene, 0, 0, 'seagull');
         this.scene = scene;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
@@ -100,15 +100,14 @@ export default class Seagull extends GameObjects.Sprite {
      */
     setNest() {
         this.state = 'nest';
-        this.x = 80;
-        this.y = 680;
+        this.x = 100;
+        this.y = 480;
         this.body.setVelocity(0, 0);
         this.rotation = 0;
         this.setFlipY(false);
         this.acceleration = 0;
         this.body.setMaxSpeed(0);
-
-        this.setTexture('seagull');
+        this.play('idle', true);
         this.setScale(0.5);
     }
 
@@ -122,9 +121,7 @@ export default class Seagull extends GameObjects.Sprite {
         this.setFlipY(false);
         this.acceleration = 10;
         this.body.setMaxSpeed(80);
-        this.body.setDrag(100);
-
-        //this.setTexture('seagull');
+        this.body.setDrag(400);
         this.setScale(0.5);
     }
 
@@ -138,7 +135,6 @@ export default class Seagull extends GameObjects.Sprite {
         this.acceleration = 30;
         this.body.setMaxSpeed(300);
         this.body.setDrag(0);
-
         this.setFlipX(false);
         this.play('fly');
         this.setScale(1);
