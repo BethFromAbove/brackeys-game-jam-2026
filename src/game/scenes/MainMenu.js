@@ -10,7 +10,7 @@ export class MainMenu extends Scene
 
     create ()
     {
-        this.add.image(400, 300, 'background');
+        this.add.image(400, 300, 'menu-bg');
 
         this.music = this.sound.add('menu-music');
         this.music.play({loop: true});

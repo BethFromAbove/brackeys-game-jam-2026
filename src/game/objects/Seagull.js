@@ -113,10 +113,6 @@ export default class Seagull extends GameObjects.Sprite {
         });
     }
 
-    draw() {
-        
-    }
-
     /**
      * when nested we stay still and point a cone towards the
      * mousepos.
