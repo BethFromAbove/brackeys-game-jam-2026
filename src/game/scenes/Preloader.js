@@ -32,6 +32,7 @@ export class Preloader extends Scene
         //  Load the assets for the game - Replace with your own assets
         this.load.setPath('assets');
 
+        this.load.image('menu-seagull', 'seagull-sketch.png');
         this.load.image('seagull', 'seagull.png');
         this.load.spritesheet('flying', 'flying.png',  { frameWidth: 50, frameHeight: 100 });
         this.load.image('background-beach', 'background.png');
