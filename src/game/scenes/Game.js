@@ -10,6 +10,8 @@ export class Game extends Scene
     }
 
     create () {
+        this.music = this.sound.add('game-music');
+        this.music.play({loop: true});
         this.add.image(400, 300, 'background-beach');
         this.add.image(400, 300, 'icecreamvan');
         this.add.image(100, 480, 'nest').setScale(0.5);

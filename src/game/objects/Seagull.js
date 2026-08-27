@@ -15,7 +15,7 @@ export default class Seagull extends GameObjects.Sprite {
         this.scene.physics.world.on(
             'worldbounds',
             (body, up, down, left, right) => {
-                if (body == this.body) {
+                if (body == this.body && this.state == 'fly') {
                     let r = this.rotation;
                     let dr = 0;
                     if (up || down) {

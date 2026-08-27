@@ -32,6 +32,7 @@ export class Preloader extends Scene
         //  Load the assets for the game - Replace with your own assets
         this.load.setPath('assets');
 
+        this.load.image('menu-seagull', 'seagull-sketch.png');
         this.load.image('seagull', 'seagull.png');
         this.load.spritesheet('flying', 'flying.png',  { frameWidth: 50, frameHeight: 100 });
         this.load.image('background-beach', 'background.png');
@@ -44,6 +45,11 @@ export class Preloader extends Scene
         this.load.image('lollipop', 'food/lollipop.png');
         this.load.image('fish-n-chips', 'food/fish-n-chips.jpg');
         this.load.image('pasty', 'food/pasty.jpg');
+
+        this.load.audio('menu-music', 'audio/Aretes.mp3');
+        this.load.audio('game-music', 'audio/Cool Hard Facts.mp3');
+        this.load.audio('seagulls-1', 'audio/194940__soundmary__gulls1.mp3');
+        this.load.audio('seagulls-2', 'audio/692001__teamenfil__20230620-gulls-1.mp3');
     }
 
     create ()
