@@ -17,6 +17,15 @@ export class Boot extends Scene
 
     create ()
     {
-        this.scene.start('Preloader');
+        this.cameras.main.setBackgroundColor(0xa1a1a1);
+
+        this.add.text(400, 300, '< click here >', {
+            fontFamily: 'Arial Black', fontSize: 38, color: '#000000',
+            align: 'center'
+        }).setOrigin(0.5);
+
+        this.input.once('pointerdown', () => {
+            this.scene.start('Preloader');
+        });
     }
 }

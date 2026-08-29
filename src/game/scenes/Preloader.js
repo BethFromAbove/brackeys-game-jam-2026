@@ -10,13 +10,13 @@ export class Preloader extends Scene
     init ()
     {
         //  We loaded this image in our Boot Scene, so we can display it here
-        this.add.image(512, 384, 'background');
+        this.add.image(400, 300, 'background');
 
         //  A simple progress bar. This is the outline of the bar.
-        this.add.rectangle(512, 384, 468, 32).setStrokeStyle(1, 0xffffff);
+        this.add.rectangle(400, 300, 468, 32).setStrokeStyle(1, 0xffffff);
 
         //  This is the progress bar itself. It will increase in size from the left based on the % of progress.
-        const bar = this.add.rectangle(512-230, 384, 4, 28, 0xffffff);
+        const bar = this.add.rectangle(400-230, 300, 4, 28, 0xffffff);
 
         //  Use the 'progress' event emitted by the LoaderPlugin to update the loading bar
         this.load.on('progress', (progress) => {
@@ -32,11 +32,25 @@ export class Preloader extends Scene
         //  Load the assets for the game - Replace with your own assets
         this.load.setPath('assets');
 
-        this.load.image('logo', 'logo.png');
+        this.load.image('menu-seagull', 'seagull-menu.png');
+        this.load.image('menu-bg', 'skyblue-background.png');
         this.load.image('seagull', 'seagull.png');
-        this.load.image('seagull-fly', 'seagull-fly.jpg');
-        this.load.image('npc1', 'npc1.png');
+        this.load.spritesheet('flying', 'flying.png',  { frameWidth: 50, frameHeight: 100 });
+        this.load.image('background-beach', 'background.png');
+        this.load.image('icecreamvan', 'icecreamvan.png');
+        this.load.image('nest', 'nest.png');
+        this.load.image('nest-sitting', 'nest-sitting.png');
         this.load.spritesheet('seagull-walk', 'seagull-spritesheet.png',  { frameWidth: 100, frameHeight: 100 });
+        this.load.spritesheet('man-walk', 'man-walking.png',  { frameWidth: 30, frameHeight: 75 });
+
+        this.load.image('lollipop', 'food/lollipop.png');
+        this.load.image('fish-n-chips', 'food/fish-n-chips.jpg');
+        this.load.image('pasty', 'food/pasty.jpg');
+
+        this.load.audio('menu-music', 'audio/Aretes.mp3');
+        this.load.audio('game-music', 'audio/Cool Hard Facts.mp3');
+        this.load.audio('seagulls-1', 'audio/194940__soundmary__gulls1.mp3');
+        this.load.audio('seagulls-2', 'audio/692001__teamenfil__20230620-gulls-1.mp3');
     }
 
     create ()
