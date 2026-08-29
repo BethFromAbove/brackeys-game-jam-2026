@@ -35,7 +35,7 @@ export class Game extends Scene
                 Util.randInt(this.scale.width),
                 Util.randInt(this.scale.height),
                 // just a bunch of placeholder images for now
-                Util.randNth(['lollipop', 'fish-n-chips', 'pasty'])
+                Util.randNth(['lollipop', 'chips', 'burger', 'phone', 'icecream'])
             );
             this.add.existing(food);
             this.physics.add.existing(food);
