@@ -1,4 +1,4 @@
-import { Scene } from 'phaser';
+import { Scene, Input } from 'phaser';
 import Util from '../util';
 
 export class MainMenu extends Scene
@@ -31,8 +31,8 @@ export class MainMenu extends Scene
             stroke: '#000000', strokeThickness: 8,
             align: 'right'
         };
-        this.titleTop = this.add.text(140, 70, 'Seagull', titleConfig).setOrigin(0.5).setAlpha(0);
-        this.titleBottom = this.add.text(290, 160, 'Squabble', titleConfig).setOrigin(0.5).setAlpha(0);
+        this.titleTop = this.add.text(200, 70, 'Seagull', titleConfig).setOrigin(0.5).setAlpha(0);
+        this.titleBottom = this.add.text(350, 160, 'Squabble', titleConfig).setOrigin(0.5).setAlpha(0);
         this.tweens.add({
             targets: [this.titleTop, this.titleBottom],
             alpha: 1,
@@ -40,11 +40,23 @@ export class MainMenu extends Scene
             delay: 5000
         });
 
-        // @TODO: delay this so they can't skip the menu animatino
-        this.input.once('pointerdown', () => {
-            this.music.stop();
-            this.seagullSounds.stop();
-            this.scene.start('Game');
+        this.enterKey = this.input.keyboard.addKey(Input.Keyboard.KeyCodes.ENTER);
+
+        let playTextConfig = {
+            fontFamily: 'Arial Black', fontSize: 32, color: '#000000',
+            align: 'right'
+        };
+        this.playText = this.add.text(200, 500, 'Press Enter to play', playTextConfig).setOrigin(0.5).setAlpha(0);
+        this.tweens.add({
+            targets: this.playText,
+            alpha: 1,
+            duration: 1000,
+            delay: 1000, // @TODO: should be 7000 for prod
+            onComplete: () => {
+                this.enterKey.on('down', () => {
+                    this.scene.start('HowToPlay');
+                });
+            }
         });
     }
 
