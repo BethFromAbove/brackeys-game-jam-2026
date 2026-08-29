@@ -29,12 +29,53 @@ const beachPositions = [
     [344, 119]
 ];
 
+const textureOptions = [
+    'man-walk-1-r',
+    'man-walk-1-g',
+    'man-walk-1-b',
+    'man-walk-2-r',
+    'man-walk-2-g',
+    'man-walk-2-b',
+    'woman-walk-1-r',
+    'woman-walk-1-g',
+    'woman-walk-1-b',
+    'woman-walk-2-r',
+    'woman-walk-2-g',
+    'woman-walk-2-b'
+];
+
 export default class NPC extends GameObjects.Sprite {
 
-    constructor(scene, path, x, y, texture = 'npc1') {
-        super(scene, Util.randNth(startLocations), 650, texture);
+    constructor(scene) {
+        super(scene, Util.randNth(startLocations), 650, 'man-walk-1-r');
         this.scene = scene;
         this.scene.add.existing(this);
+
+        this.texture = Util.randNth(textureOptions);
+        this.anims.create({
+            key: 'idle',
+            frames: this.anims.generateFrameNumbers(this.texture, { start: 0, end: 0 }),
+            frameRate: 1,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'angry',
+            frames: this.anims.generateFrameNumbers(this.texture, { start: 1, end: 2 }),
+            frameRate: 6,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'walking',
+            frames: this.anims.generateFrameNumbers(this.texture, { start: 3, end: 5 }),
+            frameRate: 6,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'carry',
+            frames: this.anims.generateFrameNumbers(this.texture, { start: 6, end: 8 }),
+            frameRate: 6,
+            repeat: -1
+        });
 
         this.pathing = false;
         this.points = [];
@@ -58,11 +99,16 @@ export default class NPC extends GameObjects.Sprite {
                 x: target[0],
                 y: target[1],
                 duration: 2000,
-                onComplete: () => { this.pathing = false }
-            })
+                onComplete: () => { this.pathing = false; }
+            });
+
+            this.play('walking', true);
+        } else if (this.pathing) {
+            this.play('walking', true);
+        } else {
+            this.play('idle', true);
         }
     }
-
 
     setLocation(x, y) {
         const clampedX = Math.max(this.width / 2, Math.min(x, this.scene.scale.width - this.width / 2));
@@ -80,5 +126,8 @@ export default class NPC extends GameObjects.Sprite {
         this.points.push([450, 500]);
         this.points.push(Util.randNth(beachPositions));
     }
-}
 
+    moveTo(p) {
+        this.points.push(p);
+    }
+}
