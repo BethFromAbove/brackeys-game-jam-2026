@@ -22,6 +22,7 @@ export class Game extends Scene
 
         // ice cream van is made up of pieces that can be stolen by beachgoers
         this.vanParts = this.physics.add.group();
+        this.vanPartsCheckHack = this.physics.add.group(); // need to stop people stealing form each other, sorry
         new VanPart(this, 'van-body');
         new VanPart(this, 'van-nest');
         new VanPart(this, 'van-ice-cream');
@@ -33,7 +34,7 @@ export class Game extends Scene
         this.player = new Seagull(this);
 
         // NPCs
-        this.npcs = [];
+        this.npcs = this.physics.add.group();
         this.npcItems = this.physics.add.group();
 
         // collider for seagull grabbing food items
@@ -58,6 +59,7 @@ export class Game extends Scene
             (npc, part) => {
                 if (npc.state == 'angry') {
                     npc.item = part;
+                    this.vanParts.remove(part);
                     npc.points = [];
                     npc.pathing = false;
                     npc.currentPathingTween.stop();
@@ -74,13 +76,15 @@ export class Game extends Scene
     }
 
     update() {
-        if (this.vanParts.length == 0) {
+        if (this.vanPartsCheckHack.getChildren().length == 0) {
             // go the game over
             this.scene.start('GameOver');
         }
 
-        if (this.npcs.length < 5) {
-            this.npcs.push(new NPC(this));
+        if (this.npcs.getChildren().length < 5) {
+            this.npcs.add(
+                new NPC(this)
+            );
         }
     }
 }

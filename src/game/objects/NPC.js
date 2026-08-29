@@ -141,7 +141,7 @@ export default class NPC extends GameObjects.Sprite {
 
     update(time, delta) {
         if (this.state == 'stealing' && !this.pathing && this.points.length == 0) {
-            this.scene.npcs = this.scene.npcs.filter((npc) => {return npc != this;});
+            this.scene.npcs.remove(this);
             this.item.destroy();
             this.destroy();
             return;
@@ -178,10 +178,10 @@ export default class NPC extends GameObjects.Sprite {
 
     dragItem() {
         if (this.item) {
-            this.item.x = this.x;
-            this.item.body.x = this.x;
-            this.item.y = this.y;
-            this.item.body.y = this.y;
+            this.item.x = this.x - 18;
+            this.item.body.x = this.x - 18;
+            this.item.y = this.y + 15;
+            this.item.body.y = this.y + 15;
         }
     }
 
