@@ -98,6 +98,18 @@ export class Game extends Scene
             loop: -1
         });
 
+        // collider for next defence cone hitting npcs
+        this.physics.add.overlap(
+            this.player.cone,
+            this.npcs,
+            (cone, npc) => {
+                if (npc.state == 'angry') {
+                    npc.state = 'fleeing';
+                    npc.currentPathingTween.stop();
+                }
+            }
+        );
+
         // debug, prints the mouse pos on click
         this.input.on('pointerdown', () => {console.log(this.input.mousePointer.x, this.input.mousePointer.y);});
     }

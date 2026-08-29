@@ -140,6 +140,17 @@ export default class NPC extends GameObjects.Sprite {
     }
 
     update(time, delta) {
+        if (this.state == 'fleeing') {
+            this.x += 10;
+            this.y -= 10;
+            this.rotation += 0.1;
+            if (this.x > this.scene.scale.width + 50 || this.y < -50) {
+                this.scene.npcs.remove(this);
+                this.destroy();
+            }
+            return;
+        }
+        
         if (this.state == 'stealing' && !this.pathing && this.points.length == 0) {
             this.scene.npcs.remove(this);
             this.item.destroy();
