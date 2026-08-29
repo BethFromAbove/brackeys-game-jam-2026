@@ -1,5 +1,6 @@
-import { Scene, GameObjects } from 'phaser';
+import { Scene, GameObjects, Curves } from 'phaser';
 import Seagull from '../objects/Seagull';
+import NPC from '../objects/NPC';
 import Food from '../objects/Food';
 import Util from '../util';
 
