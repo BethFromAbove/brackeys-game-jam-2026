@@ -15,7 +15,6 @@ export class Game extends Scene
         this.music.play({loop: true});
         this.add.image(400, 300, 'background-beach');
         this.add.image(400, 300, 'background-rocks').setDepth(2);
-        this.add.image(400, 300, 'icecreamvan');
         this.add.image(100, 480, 'nest').setScale(0.5);
         
         this.wave1 = this.add.image(400, 0, 'wave1').setOrigin(0.5, 0).setDepth(1).setAlpha(0.75);
