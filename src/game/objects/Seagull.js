@@ -39,7 +39,7 @@ export default class Seagull extends GameObjects.Sprite {
 
         this.scene.anims.create({
             key: 'walk',
-            frames: this.scene.anims.generateFrameNumbers('seagull-walk', { start: 1, end: 2 }),
+            frames: this.scene.anims.generateFrameNumbers('seagull-walk', { start: 1, end: 5 }),
             frameRate: 6,
             repeat: -1
         });

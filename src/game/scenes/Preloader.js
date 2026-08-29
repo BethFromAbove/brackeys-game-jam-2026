@@ -34,6 +34,7 @@ export class Preloader extends Scene
 
         this.load.image('menu-seagull', 'seagull-menu.png');
         this.load.image('menu-bg', 'skyblue-background.png');
+        this.load.image('howtoplay-bg', 'howtoplay-bg.png');
         this.load.image('seagull', 'seagull.png');
         this.load.spritesheet('flying', 'flying.png',  { frameWidth: 50, frameHeight: 100 });
         this.load.image('background-beach', 'background.png');
@@ -44,8 +45,10 @@ export class Preloader extends Scene
         this.load.spritesheet('man-walk', 'man-walking.png',  { frameWidth: 30, frameHeight: 75 });
 
         this.load.image('lollipop', 'food/lollipop.png');
-        this.load.image('fish-n-chips', 'food/fish-n-chips.jpg');
-        this.load.image('pasty', 'food/pasty.jpg');
+        this.load.image('chips', 'food/chips.png');
+        this.load.image('burger', 'food/burger.png');
+        this.load.image('phone', 'food/phone.png');
+        this.load.image('icecream', 'food/icecream.png');
 
         this.load.audio('menu-music', 'audio/Aretes.mp3');
         this.load.audio('game-music', 'audio/Cool Hard Facts.mp3');

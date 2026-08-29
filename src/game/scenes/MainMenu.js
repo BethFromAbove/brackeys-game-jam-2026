@@ -42,9 +42,7 @@ export class MainMenu extends Scene
 
         // @TODO: delay this so they can't skip the menu animatino
         this.input.once('pointerdown', () => {
-            this.music.stop();
-            this.seagullSounds.stop();
-            this.scene.start('Game');
+            this.scene.start('HowToPlay');
         });
     }
 
