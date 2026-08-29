@@ -16,14 +16,13 @@ export class Game extends Scene
         this.add.image(400, 300, 'background-beach');
 
         // ice cream van is made up of pieces that can be stolen by beachgoers
-        this.vanParts = [
-            new VanPart(this, 'van-body'),
-            new VanPart(this, 'van-nest'),
-            new VanPart(this, 'van-ice-cream'),
-            new VanPart(this, 'van-menu'),
-            new VanPart(this, 'van-wheel-left'),
-            new VanPart(this, 'van-wheel-right'),
-        ];
+        this.vanParts = this.physics.add.group();
+        new VanPart(this, 'van-body');
+        new VanPart(this, 'van-nest');
+        new VanPart(this, 'van-ice-cream');
+        new VanPart(this, 'van-menu');
+        new VanPart(this, 'van-wheel-left');
+        new VanPart(this, 'van-wheel-right');
 
         // player seagull
         this.player = new Seagull(this);
@@ -40,6 +39,27 @@ export class Game extends Scene
                 p.grab(i);
                 i.npc.item = null;
                 i.npc.setAngry();
+                i.npc.moveTo([370, 500]);
+                i.npc.moveTo([325, 560]);
+                i.npc.moveTo([60, 560]);
+            }
+        );
+
+        // collider for npcs stealing van parts
+        this.physics.add.overlap(
+            this.npcs,
+            this.vanParts,
+            (npc, part) => {
+                if (npc.state == 'angry') {
+                    npc.item = part;
+                    npc.points = [];
+                    npc.pathing = false;
+                    npc.currentPathingTween.stop();
+                    npc.setStealing();
+                    npc.moveTo([370, 560]);
+                    npc.moveTo([370, 650]);
+                    npc.state = 'stealing';
+                }
             }
         );
 

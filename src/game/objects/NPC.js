@@ -58,8 +58,7 @@ export default class NPC extends GameObjects.Sprite {
         super(scene, Util.randNth(startLocations), 650 + Util.randInt(200), 'man-walk-1-r');
         this.scene = scene;
         this.scene.add.existing(this);
-
-        this.state = 'walking';
+        this.scene.physics.add.existing(this);
 
         this.texture = Util.randNth(textureOptions);
         this.anims.create({
@@ -125,6 +124,7 @@ export default class NPC extends GameObjects.Sprite {
     }
 
     setAngry() {
+        this.state = 'angry';
         this.play('angry', true);
         this.hideItem();
     }
@@ -140,24 +140,36 @@ export default class NPC extends GameObjects.Sprite {
     }
 
     update(time, delta) {
+        if (this.state == 'stealing' && !this.pathing && this.points.length == 0) {
+            this.scene.npcs = this.scene.npcs.filter((npc) => {return npc != this;});
+            this.item.destroy();
+            this.destroy();
+            return;
+        }
+
         if (!this.pathing && this.points.length > 0) {
             this.pathing = true;
 
             let target = this.points.shift();
             let distance = Math.sqrt(Math.pow(target[0] - this.x, 2) + Math.pow(target[1] - this.y, 2));
             
-            this.scene.tweens.add({
+            this.currentPathingTween = this.scene.tweens.add({
                 targets: this,
                 x: target[0],
                 y: target[1],
                 duration: 10 * distance, // magic number 10, gives a fine speed
                 onComplete: () => { this.pathing = false; }
             });
-
-            this.setWalking();
         } else if (this.pathing) {
-            this.setWalking();
-        } else {
+            if (this.state == 'angry') {
+                this.setAngry();
+            } else if (this.state == 'stealing') {
+                this.setStealing();
+            }
+            else {
+                this.setWalking();
+            }
+        } else if (this.item) {
             this.setIdle();
         }
 
