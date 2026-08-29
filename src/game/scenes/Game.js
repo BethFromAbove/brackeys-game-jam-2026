@@ -70,6 +70,7 @@ export class Game extends Scene
     update() {
         if (this.vanParts.length == 0) {
             // go the game over
+            this.scene.start('GameOver');
         }
 
         if (this.npcs.length < 5) {
