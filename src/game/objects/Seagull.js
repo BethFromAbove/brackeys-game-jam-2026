@@ -1,4 +1,4 @@
-import { GameObjects } from 'phaser';
+import { GameObjects, Actions } from 'phaser';
 import Util from '../util';
 
 export default class Seagull extends GameObjects.Sprite {
@@ -28,6 +28,13 @@ export default class Seagull extends GameObjects.Sprite {
                 }
             }
         );
+
+        // nest defence cone
+        this.cone = new GameObjects.Sprite(this.scene, 100, 340, 'cone');
+        this.scene.add.existing(this.cone);
+        this.scene.physics.add.existing(this.cone);
+        this.cone.setAlpha(0);
+        this.cone.body.enable = false;
 
         this.cursors = this.scene.input.keyboard.createCursorKeys();
         this.wasd = scene.input.keyboard.addKeys({
@@ -96,7 +103,6 @@ export default class Seagull extends GameObjects.Sprite {
     preUpdate(time, delta) {
         super.preUpdate(time, delta);
         this.update(time, delta);
-        // this.draw();
     }
 
     update(time, delta) {
@@ -163,6 +169,11 @@ export default class Seagull extends GameObjects.Sprite {
         this.play('nest-protect', true);
         this.setScale(0.5);
         this.depositInventory();
+        console.log(this.scene);
+        if (this.scene.sys.config == 'Game') {
+            this.cone.setAlpha(0.5);
+            this.cone.body.enable = true;
+        }
     }
 
     /**
@@ -178,6 +189,10 @@ export default class Seagull extends GameObjects.Sprite {
         this.body.setDrag(400);
         this.body.setSize(100, 100);
         this.setScale(0.5);
+        if (this.scene.sys.config == 'Game') {
+            this.cone.setAlpha(0);
+            this.cone.body.enable = false;
+        }
     }
 
     /**
@@ -194,6 +209,10 @@ export default class Seagull extends GameObjects.Sprite {
         this.play('fly');
         this.body.setSize(50, 100);
         this.setScale(1);
+        if (this.scene.sys.config == 'Game') {
+            this.cone.setAlpha(0);
+            this.cone.body.enable = false;
+        }
     }
 
     /**
@@ -220,15 +239,16 @@ export default class Seagull extends GameObjects.Sprite {
     }
 
     handleNestMovement() {
-        let {u, r} = this.getInputs();
-
+        let {u, l, r} = this.getInputs();
         if (u) {
             this.y -= 50;
             this.setWalk();
         } else if (r) {
-            this.x += 50;
-            this.setWalk();
+            Actions.RotateAround([this.cone], this, 0.04);
+        } else if (l) {
+            Actions.RotateAround([this.cone], this, -0.04);
         }
+        this.cone.setRotation(Math.PI - Math.atan2((this.cone.x - this.x), (this.cone.y - this.y)));
     }
 
     handleWalkMovement() {

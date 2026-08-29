@@ -42,6 +42,7 @@ export class Preloader extends Scene
         this.load.image('background-rocks', 'rocks.png');
         this.load.image('wave1', 'wave1.png');
         this.load.image('wave2', 'wave2.png');
+        this.load.image('cone', 'cone.png');
         this.load.image('icecreamvan', 'icecreamvan.png');
         this.load.image('nest', 'nest.png');
         this.load.image('nest-sitting', 'nest-sitting.png');
