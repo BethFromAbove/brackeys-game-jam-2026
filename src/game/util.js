@@ -45,6 +45,13 @@ export default class Util {
     static randNth (items) {
         return items[this.randInt(items.length)];
     }
+    
+    /**
+     * Constrain a value between 'min' and 'max'.
+     */
+    static clamp(value, min, max) {
+        return Math.max(min, Math.min(value, max));
+    }
 
     /**
      * Calculate a new point which is `distance` away from `start` in
