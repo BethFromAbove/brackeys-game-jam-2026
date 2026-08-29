@@ -51,6 +51,13 @@ export class Preloader extends Scene
         this.load.image('phone', 'food/phone.png');
         this.load.image('icecream', 'food/icecream.png');
 
+        this.load.image('van-body', 'van/body.png');
+        this.load.image('van-nest', 'van/nest.png');
+        this.load.image('van-ice-cream', 'van/ice-cream.png');
+        this.load.image('van-menu', 'van/menu.png');
+        this.load.image('van-wheel-left', 'van/wheel-left.png');
+        this.load.image('van-wheel-right', 'van/wheel-right.png');
+
         this.load.audio('menu-music', 'audio/Aretes.mp3');
         this.load.audio('game-music', 'audio/Cool Hard Facts.mp3');
         this.load.audio('seagulls-1', 'audio/194940__soundmary__gulls1.mp3');

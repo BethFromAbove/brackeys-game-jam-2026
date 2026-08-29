@@ -1,7 +1,7 @@
 import { Scene, GameObjects, Curves } from 'phaser';
 import Seagull from '../objects/Seagull';
 import NPC from '../objects/NPC';
-import Food from '../objects/Food';
+import VanPart from '../objects/VanPart';
 import Util from '../util';
 
 export class Game extends Scene
@@ -14,8 +14,6 @@ export class Game extends Scene
         this.music = this.sound.add('game-music');
         this.music.play({loop: true});
         this.add.image(400, 300, 'background-beach');
-        this.add.image(400, 300, 'icecreamvan');
-        this.add.image(100, 480, 'nest').setScale(0.5);
 
         // demo man walking sprite - delete once man object exists
         this.man = this.add.sprite(300, 300, 'man-walk');
@@ -27,7 +25,7 @@ export class Game extends Scene
         });
         this.man.play('man-walking');
 
-        // create a random assortment of foods
+        // @TEMP create a random assortment of foods
         this.foods = [];
         for (let i = 0; i < 10; i++) {
             let food = new GameObjects.Sprite(
@@ -42,6 +40,17 @@ export class Game extends Scene
             this.foods.push(food);
         }
 
+        // ice cream van is made up of pieces that can be stolen by beachgoers
+        this.vanParts = [
+            new VanPart(this, 'van-body'),
+            new VanPart(this, 'van-nest'),
+            new VanPart(this, 'van-ice-cream'),
+            new VanPart(this, 'van-menu'),
+            new VanPart(this, 'van-wheel-left'),
+            new VanPart(this, 'van-wheel-right'),
+        ];
+
+        // player seagull
         this.player = new Seagull(this);
 
         // collider for seagull grabbing food items
@@ -55,5 +64,11 @@ export class Game extends Scene
 
         // debug, prints the mouse pos on click
         this.input.on('pointerdown', () => {console.log(this.input.mousePointer.x, this.input.mousePointer.y);});
+    }
+
+    update() {
+        if (this.vanParts.length == 0) {
+            // go the game over
+        }
     }
 }
