@@ -58,21 +58,37 @@ export default class Seagull extends GameObjects.Sprite {
             repeat: -1
         });
 
+        this.scene.anims.create({
+            key: 'nest-sitting',
+            frames: this.scene.anims.generateFrameNumbers('nest-spritesheet', { start: 0, end: 0 }),
+            frameRate: 1,
+            repeat: -1
+        });
+
+        this.scene.anims.create({
+            key: 'nest-protect',
+            frames: this.scene.anims.generateFrameNumbers('nest-spritesheet', { start: 0, end: 1 }),
+            frameRate: 1,
+            repeat: -1
+        });
+
         this.facingRightWalking = true;
 
-        // @TEMP, cycle through nest/walk/fly with space
         this.keyObject = this.scene.input.keyboard.addKey("SPACE");
         this.keyObject.on('down', () => {
             if (this.state == 'nest') {
                 this.setWalk();
             } else if (this.state == 'walk') {
                 this.setFly();
+            } else if (this.state == 'fly') {
+                this.setWalk();
             } else {
                 this.setNest();
             }
         });
 
         this.inventory = [];
+        this.nestVisits = 0;
 
         this.setNest();
     }
@@ -113,6 +129,23 @@ export default class Seagull extends GameObjects.Sprite {
         });
     }
 
+    depositInventory() {
+        let n = this.inventory.length;
+        if (this.inventory.length > 0) {
+            this.nestVisits++;
+        }
+        let dx = 20;
+        this.inventory.forEach((item, idx) => {
+            let x = this.x + (idx * dx) - (n * dx * 0.5);
+            let y = this.y + 30;
+            item.x = x;
+            item.body.x = x;
+            item.y = y + ((this.nestVisits-1)*20);
+            item.body.y = y + ((this.nestVisits-1)*20);
+        });
+        this.inventory = [];
+    }
+
     /**
      * when nested we stay still and point a cone towards the
      * mousepos.
@@ -127,8 +160,9 @@ export default class Seagull extends GameObjects.Sprite {
         this.acceleration = 0;
         this.body.setMaxSpeed(0);
         this.body.setSize(100, 100);
-        this.play('idle', true);
+        this.play('nest-protect', true);
         this.setScale(0.5);
+        this.depositInventory();
     }
 
     /**
@@ -220,6 +254,10 @@ export default class Seagull extends GameObjects.Sprite {
         }
         else {
             this.play('idle', true);
+        }
+
+        if ((this.x > 85 && this.x < 115) && (this.y < 495 && this.y > 465)) {
+            this.setNest();
         }
     }
 
