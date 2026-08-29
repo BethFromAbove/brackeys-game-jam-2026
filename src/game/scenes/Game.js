@@ -12,10 +12,14 @@ export class Game extends Scene
 
     create () {
         this.music = this.sound.add('game-music');
-        this.music.play({loop: true});
+        // this.music.play({loop: true});
         this.add.image(400, 300, 'background-beach');
+        this.add.image(400, 300, 'background-rocks').setDepth(2);
         this.add.image(400, 300, 'icecreamvan');
         this.add.image(100, 480, 'nest').setScale(0.5);
+        
+        this.wave1 = this.add.image(400, 0, 'wave1').setOrigin(0.5, 0).setDepth(1).setAlpha(0.75);
+        this.wave2 = this.add.image(400, 0, 'wave2').setOrigin(0.5, 0).setAlpha(0.75);
 
         // demo man walking sprite - delete once man object exists
         this.man = this.add.sprite(300, 300, 'man-walk');
@@ -52,6 +56,28 @@ export class Game extends Scene
                 p.grab(f);
             }
         );
+
+        this.tweens.add({
+            targets: this.wave1,
+            scaleY: 2.2,
+            ease: 'Back',
+            delay: 600,
+            duration: 3000,
+            hold: 300,
+            yoyo: true,
+            loop: -1,
+        });
+
+        this.tweens.add({
+            targets: this.wave2,
+            scaleY: 1.8,
+            ease: 'Back',
+            delay: 900,
+            duration: 3000,
+            hold: 300,
+            yoyo: true,
+            loop: -1
+        });
 
         // debug, prints the mouse pos on click
         this.input.on('pointerdown', () => {console.log(this.input.mousePointer.x, this.input.mousePointer.y);});
