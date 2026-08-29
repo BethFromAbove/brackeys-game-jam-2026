@@ -76,6 +76,9 @@ export class Preloader extends Scene
         this.load.audio('game-music', 'audio/Cool Hard Facts.mp3');
         this.load.audio('seagulls-1', 'audio/194940__soundmary__gulls1.mp3');
         this.load.audio('seagulls-2', 'audio/692001__teamenfil__20230620-gulls-1.mp3');
+        this.load.audio('pop1', 'audio/pop1.mp3');
+        this.load.audio('pop2', 'audio/pop2.mp3');
+        this.load.audio('pop3', 'audio/pop3.mp3');
     }
 
     create ()

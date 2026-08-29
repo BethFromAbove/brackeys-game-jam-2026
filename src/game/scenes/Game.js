@@ -15,6 +15,11 @@ export class Game extends Scene
         this.music.play({loop: true});
         this.add.image(400, 300, 'background-beach');
 
+        this.popSound1 = this.sound.add('pop1');
+        this.popSound2 = this.sound.add('pop2');
+        this.popSound3 = this.sound.add('pop3');
+        this.popSounds = [this.popSound1, this.popSound2, this.popSound3];
+
         // ice cream van is made up of pieces that can be stolen by beachgoers
         this.vanParts = this.physics.add.group();
         this.vanPartsCheckHack = this.physics.add.group(); // need to stop people stealing form each other, sorry
@@ -39,6 +44,7 @@ export class Game extends Scene
             (p, i) => {
                 p.grab(i);
                 i.npc.item = null;
+                this.popSounds[Util.randInt(3)].play();
                 i.npc.setAngry();
                 i.npc.moveTo([370, 500]);
                 i.npc.moveTo([325, 560]);
