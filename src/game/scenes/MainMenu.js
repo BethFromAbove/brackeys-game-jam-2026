@@ -41,8 +41,22 @@ export class MainMenu extends Scene
         });
 
         this.enterKey = this.input.keyboard.addKey(Input.Keyboard.KeyCodes.ENTER);
-        this.enterKey.on('down', () => {
-            this.scene.start('HowToPlay');
+
+        let playTextConfig = {
+            fontFamily: 'Arial Black', fontSize: 32, color: '#000000',
+            align: 'right'
+        };
+        this.playText = this.add.text(200, 500, 'Press Enter to play', playTextConfig).setOrigin(0.5).setAlpha(0);
+        this.tweens.add({
+            targets: this.playText,
+            alpha: 1,
+            duration: 1000,
+            delay: 1000, // @TODO: should be 7000 for prod
+            onComplete: () => {
+                this.enterKey.on('down', () => {
+                    this.scene.start('HowToPlay');
+                });
+            }
         });
     }
 
