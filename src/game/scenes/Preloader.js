@@ -42,22 +42,22 @@ export class Preloader extends Scene
         this.load.image('nest', 'nest.png');
         this.load.image('nest-sitting', 'nest-sitting.png');
         this.load.spritesheet('seagull-walk', 'seagull-spritesheet.png',  { frameWidth: 100, frameHeight: 100 });
-        this.load.spritesheet('man-walk', 'man-walking.png',  { frameWidth: 30, frameHeight: 75 });
         this.load.spritesheet('nest-spritesheet', 'nest-spritesheet.png',  { frameWidth: 100, frameHeight: 100 });
 
-        this.load.spritesheet('man-walk-1-r', 'man1-red.png',  { frameWidth: 30, frameHeight: 75 });
-        this.load.spritesheet('man-walk-1-g', 'man1-green.png',  { frameWidth: 30, frameHeight: 75 });
-        this.load.spritesheet('man-walk-1-b', 'man1-blue.png',  { frameWidth: 30, frameHeight: 75 });
-        this.load.spritesheet('man-walk-2-r', 'man2-red.png',  { frameWidth: 30, frameHeight: 75 });
-        this.load.spritesheet('man-walk-2-g', 'man2-green.png',  { frameWidth: 30, frameHeight: 75 });
-        this.load.spritesheet('man-walk-2-b', 'man2-blue.png',  { frameWidth: 30, frameHeight: 75 });
+        let npcConfig = { frameWidth: 30, frameHeight: 75 };
+        this.load.spritesheet('man-walk-1-r', 'man1-red.png',  npcConfig);
+        this.load.spritesheet('man-walk-1-g', 'man1-green.png',  npcConfig);
+        this.load.spritesheet('man-walk-1-b', 'man1-blue.png',  npcConfig);
+        this.load.spritesheet('man-walk-2-r', 'man2-red.png',  npcConfig);
+        this.load.spritesheet('man-walk-2-g', 'man2-green.png',  npcConfig);
+        this.load.spritesheet('man-walk-2-b', 'man2-blue.png',  npcConfig);
 
-        this.load.spritesheet('woman-walk-1-r', 'woman1-red.png',  { frameWidth: 30, frameHeight: 75 });
-        this.load.spritesheet('woman-walk-1-g', 'woman1-green.png',  { frameWidth: 30, frameHeight: 75 });
-        this.load.spritesheet('woman-walk-1-b', 'woman1-blue.png',  { frameWidth: 30, frameHeight: 75 });
-        this.load.spritesheet('woman-walk-2-r', 'woman2-red.png',  { frameWidth: 30, frameHeight: 75 });
-        this.load.spritesheet('woman-walk-2-g', 'woman2-green.png',  { frameWidth: 30, frameHeight: 75 });
-        this.load.spritesheet('woman-walk-2-b', 'woman2-blue.png',  { frameWidth: 30, frameHeight: 75 });
+        this.load.spritesheet('woman-walk-1-r', 'woman1-red.png',  npcConfig);
+        this.load.spritesheet('woman-walk-1-g', 'woman1-green.png',  npcConfig);
+        this.load.spritesheet('woman-walk-1-b', 'woman1-blue.png',  npcConfig);
+        this.load.spritesheet('woman-walk-2-r', 'woman2-red.png',  npcConfig);
+        this.load.spritesheet('woman-walk-2-g', 'woman2-green.png',  npcConfig);
+        this.load.spritesheet('woman-walk-2-b', 'woman2-blue.png',  npcConfig);
 
         this.load.image('lollipop', 'food/lollipop.png');
         this.load.image('chips', 'food/chips.png');

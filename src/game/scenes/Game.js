@@ -15,21 +15,6 @@ export class Game extends Scene
         this.music.play({loop: true});
         this.add.image(400, 300, 'background-beach');
 
-        // @TEMP create a random assortment of foods
-        this.foods = [];
-        for (let i = 0; i < 10; i++) {
-            let food = new GameObjects.Sprite(
-                this,
-                Util.randInt(this.scale.width),
-                Util.randInt(this.scale.height),
-                // just a bunch of placeholder images for now
-                Util.randNth(['lollipop', 'chips', 'burger', 'phone', 'icecream'])
-            );
-            this.add.existing(food);
-            this.physics.add.existing(food);
-            this.foods.push(food);
-        }
-
         // ice cream van is made up of pieces that can be stolen by beachgoers
         this.vanParts = [
             new VanPart(this, 'van-body'),
@@ -43,20 +28,18 @@ export class Game extends Scene
         // player seagull
         this.player = new Seagull(this);
 
-        this.npcs = [
-            new NPC(this),
-            new NPC(this),
-            new NPC(this),
-            new NPC(this),
-            new NPC(this),
-        ];
+        // NPCs
+        this.npcs = [];
+        this.npcItems = this.physics.add.group();
 
         // collider for seagull grabbing food items
         this.physics.add.overlap(
             this.player,
-            this.foods,
-            (p, f) => {
-                p.grab(f);
+            this.npcItems,
+            (p, i) => {
+                p.grab(i);
+                i.npc.item = null;
+                i.npc.setAngry();
             }
         );
 
@@ -67,6 +50,10 @@ export class Game extends Scene
     update() {
         if (this.vanParts.length == 0) {
             // go the game over
+        }
+
+        if (this.npcs.length < 5) {
+            this.npcs.push(new NPC(this));
         }
     }
 }

@@ -44,12 +44,22 @@ const textureOptions = [
     'woman-walk-2-b'
 ];
 
+const foodOptions = [
+    'lollipop',
+    'chips',
+    'burger',
+    'phone',
+    'icecream'
+];
+
 export default class NPC extends GameObjects.Sprite {
 
     constructor(scene) {
-        super(scene, Util.randNth(startLocations), 650, 'man-walk-1-r');
+        super(scene, Util.randNth(startLocations), 650 + Util.randInt(200), 'man-walk-1-r');
         this.scene = scene;
         this.scene.add.existing(this);
+
+        this.state = 'walking';
 
         this.texture = Util.randNth(textureOptions);
         this.anims.create({
@@ -77,15 +87,56 @@ export default class NPC extends GameObjects.Sprite {
             repeat: -1
         });
 
+        this.item = new GameObjects.Sprite(this.scene, this.x, this.y, Util.randNth(foodOptions));
+        this.item.npc = this;
+        this.scene.add.existing(this.item);
+        this.scene.physics.add.existing(this.item);
+        this.scene.npcItems.add(this.item);
+
         this.pathing = false;
         this.points = [];
         this.setInitialPath();
+
+        this.setWalking();
+    }
+
+    hideItem() {
+        if (this.item) {
+            this.item.setVisible(false);
+            this.item.body.enable = false;
+        }
+    }
+
+    showItem() {
+        if (this.item) {
+            this.item.setVisible(true);
+            this.item.body.enable = true;
+        }
+    }
+
+    setIdle() {
+        this.play('idle', true);
+        this.showItem();
+    }
+
+    setWalking() {
+        this.play('walking', true);
+        this.hideItem();
+    }
+
+    setAngry() {
+        this.play('angry', true);
+        this.hideItem();
+    }
+
+    setStealing() {
+        this.play('carry', true);
+        this.showItem();
     }
 
     preUpdate(time, delta) {
         super.preUpdate(time, delta);
         this.update(time, delta);
-
     }
 
     update(time, delta) {
@@ -93,20 +144,32 @@ export default class NPC extends GameObjects.Sprite {
             this.pathing = true;
 
             let target = this.points.shift();
-
+            let distance = Math.sqrt(Math.pow(target[0] - this.x, 2) + Math.pow(target[1] - this.y, 2));
+            
             this.scene.tweens.add({
                 targets: this,
                 x: target[0],
                 y: target[1],
-                duration: 2000,
+                duration: 10 * distance, // magic number 10, gives a fine speed
                 onComplete: () => { this.pathing = false; }
             });
 
-            this.play('walking', true);
+            this.setWalking();
         } else if (this.pathing) {
-            this.play('walking', true);
+            this.setWalking();
         } else {
-            this.play('idle', true);
+            this.setIdle();
+        }
+
+        this.dragItem();
+    }
+
+    dragItem() {
+        if (this.item) {
+            this.item.x = this.x;
+            this.item.body.x = this.x;
+            this.item.y = this.y;
+            this.item.body.y = this.y;
         }
     }
 
