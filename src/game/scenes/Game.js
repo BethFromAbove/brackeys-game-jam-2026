@@ -1,5 +1,6 @@
-import { Scene, GameObjects } from 'phaser';
+import { Scene, GameObjects, Curves } from 'phaser';
 import Seagull from '../objects/Seagull';
+import NPC from '../objects/NPC';
 
 export class Game extends Scene
 {
@@ -14,7 +15,7 @@ export class Game extends Scene
 
         this.add.image(512, 384, 'background').setAlpha(0.5);
 
-        this.player = new Seagull(this, 300, 300);
+        this.player = new Seagull(this, 0, 200);
 
         // debug, prints the mouse pos on click
         this.input.on('pointerdown', () => {console.log(this.input.mousePointer.x, this.input.mousePointer.y);});
