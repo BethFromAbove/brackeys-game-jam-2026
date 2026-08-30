@@ -13,6 +13,8 @@ export class GameOver extends Scene
 
         this.add.image(400, 300, 'background').setAlpha(0.5);
 
+        this.musicArray = this.sound.getAllPlaying();
+
         this.add.text(400, 300, 'Game Over', {
             fontFamily: 'Arial Black', fontSize: 64, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
@@ -20,7 +22,9 @@ export class GameOver extends Scene
         }).setOrigin(0.5);
 
         this.input.once('pointerdown', () => {
-
+            this.musicArray.forEach((item) => {
+                item.stop();
+            });
             this.scene.start('MainMenu');
 
         });
