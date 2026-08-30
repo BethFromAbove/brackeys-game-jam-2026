@@ -84,7 +84,7 @@ export default class Seagull extends GameObjects.Sprite {
         this.keyObject = this.scene.input.keyboard.addKey("SPACE");
         this.keyObject.on('down', () => {
             if (this.state == 'nest') {
-                this.setWalk();
+                this.setFly();
             } else if (this.state == 'walk') {
                 this.setFly();
             } else if (this.state == 'fly') {
@@ -276,7 +276,7 @@ export default class Seagull extends GameObjects.Sprite {
             this.play('idle', true);
         }
 
-        if ((this.x > 85 && this.x < 115) && (this.y < 495 && this.y > 465)) {
+        if ((this.x > 80 && this.x < 120) && (this.y < 500 && this.y > 460)) {
             this.setNest();
         }
     }
