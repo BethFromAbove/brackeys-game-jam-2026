@@ -51,7 +51,7 @@ export class MainMenu extends Scene
             targets: this.playText,
             alpha: 1,
             duration: 1000,
-            delay: 1000, // @TODO: should be 7000 for prod
+            delay: 7000,
             onComplete: () => {
                 this.enterKey.on('down', () => {
                     this.scene.start('HowToPlay');
